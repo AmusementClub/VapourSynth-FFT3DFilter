@@ -94,7 +94,8 @@ jobs:
 
     - name: Setup sde
       run: |
-        tar -xf sde.tar.xz
+        7z x sde.tar.xz
+        7z x sde.tar
         mv sde-* sde
 
     - name: Create script

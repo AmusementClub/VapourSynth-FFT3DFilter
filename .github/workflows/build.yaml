@@ -57,7 +57,7 @@ jobs:
         arch: ${{ matrix.arch }}
 
     - name: Install pkg-config lite
-      run: choco install pkgconfiglite
+      run: choco install pkgconfiglite --allow-empty-checksums
 
     - name: Meson setup
       run: meson setup builddir/ -Db_vscrt=mt -Dpkg_config_path=${{ github.workspace }}/vcpkg/installed/x64-windows-static/lib/pkgconfig

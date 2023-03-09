@@ -89,9 +89,11 @@ jobs:
     - name: Copy plugin
       run: cp builddir/*.dll vs_portable/vapoursynth64/plugins
 
+    - name: Download sde
+      run: curl -o sde.tar.xz -LJO https://downloadmirror.intel.com/751535/sde-external-9.14.0-2022-10-25-win.tar.xz
+
     - name: Setup sde
       run: |
-        curl -o sde.tar.xz -LJO https://downloadmirror.intel.com/751535/sde-external-9.14.0-2022-10-25-win.tar.xz
         tar -xf sde.tar.xz
         mv sde-* sde
 

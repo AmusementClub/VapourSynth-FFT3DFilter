@@ -63,7 +63,7 @@ jobs:
       run: meson setup builddir/ -Db_vscrt=mt -Dpkg_config_path=${{ github.workspace }}/vcpkg/installed/x64-windows-static/lib/pkgconfig
       env:
         CXX: clang-cl
-        CXXFLAGS: "-mavx -mfma -Xclang -ffast-math"
+        CXXFLAGS: "-mavx -Xclang -ffast-math"
 
     - name: Meson compile
       run: meson compile -C builddir/ -v

@@ -91,7 +91,7 @@ jobs:
 
     - name: Setup sde
       run: |
-        curl -s -o sde.tar.xz -LJO https://downloadmirror.intel.com/751535/sde-external-9.14.0-2022-10-25-win.tar.xz
+        curl -o sde.tar.xz -LJO https://downloadmirror.intel.com/751535/sde-external-9.14.0-2022-10-25-win.tar.xz
         tar -xf sde.tar.xz
         mv sde-* sde
 

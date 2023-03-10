@@ -2,8 +2,6 @@ name: Build for Windows
 
 on:
   push:
-    paths:
-      - '*'
   workflow_dispatch:
     inputs:
       tag:

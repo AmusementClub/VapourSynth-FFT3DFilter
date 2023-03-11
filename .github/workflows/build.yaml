@@ -122,7 +122,7 @@ jobs:
       run: |
         cd builddir
         mkdir vs-fft3dfilter-windows-${{ github.event.inputs.tag }}
-        xcopy fft3dfilter.dll vs-fft3dfilter-wimdows-${{ github.event.inputs.tag }} /f
+        xcopy fft3dfilter.dll vs-fft3dfilter-windows-${{ github.event.inputs.tag }} /f
         7z a -t7z -mx=9 ../vs-fft3dfilter-windows-${{ github.event.inputs.tag }}.7z vs-fft3dfilter-windows-${{ github.event.inputs.tag }}
     
     - name: Release

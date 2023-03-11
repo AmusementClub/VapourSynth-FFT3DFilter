@@ -16,19 +16,19 @@ jobs:
         arch: [ x64 ]
     runs-on: ${{ matrix.platform }}
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         submodules: 'recursive'
 
     - name: Cache fftw3
       id: cache-fftw3
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: ${{ github.workspace }}/vcpkg/installed/
         key: ${{ runner.os }}-fftw3-v1
 
     - name: Run vcpkg
-      uses: lukka/run-vcpkg@v4
+      uses: lukka/run-vcpkg@v7
       if: steps.cache-fftw3.outputs.cache-hit != 'true'
       with:
         vcpkgArguments: 'fftw3[avx2,threads]:x64-windows-static'
@@ -36,7 +36,7 @@ jobs:
         vcpkgGitCommitId: 5568f110b509a9fd90711978a7cb76bae75bb092 # 2021.05.12 release
 
     - name: Setup Python
-      uses: actions/setup-python@v1
+      uses: actions/setup-python@v4
       with:
         python-version: '3.x'
     - name: install meson and ninja
@@ -75,7 +75,7 @@ jobs:
       run: meson compile -C builddir/ -v
 
     - name: Upload artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: release-${{matrix.arch}}
         path: |

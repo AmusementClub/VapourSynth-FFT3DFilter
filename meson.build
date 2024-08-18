@@ -26,6 +26,8 @@ else
   install_dir = join_paths(vapoursynth_dep.get_pkgconfig_variable('libdir'), 'vapoursynth')
   if host_machine.cpu_family().startswith('x86')
     add_project_arguments('-mfpmath=sse', '-msse2', language : 'cpp')
+  elif host_machine.cpu_family().startswith('arm') or host_machine.cpu_family() == 'aarch64'
+    add_project_arguments('-Ofast', '-ftree-vectorize', '-fopenmp', '-fno-math-errno', '-fno-trapping-math', language: 'cpp')
   endif
 endif
 
@@ -36,8 +38,19 @@ int main() {
     return 0;
 }
 '''
-if not cc.links(code, dependencies : fftw3f_dep)
-  deps += cc.find_library('fftw3f_threads')
+# Try finding fftw3f_threads library
+fftw3f_threads_dep = cc.find_library('fftw3f_threads', required: false)
+
+# Macos homebrew installed fftw3f do not have pkgcongig for fftw3f_threads
+if not fftw3f_threads_dep.found() and host_machine.system() == 'darwin'
+  message('fftw3f_threads not found in default locations, trying Homebrew directory.')
+  fftw3f_threads_dep = cc.find_library('fftw3f_threads', dirs: ['/opt/homebrew/lib'])
+endif
+
+if fftw3f_threads_dep.found()
+  message('fftw3f_threads library found.')
+else
+  error('fftw3f_threads library not found.')
 endif
 
 shared_module('fft3dfilter', sources,

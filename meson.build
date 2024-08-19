@@ -39,7 +39,9 @@ int main() {
 }
 '''
 # Try finding fftw3f_threads library
-fftw3f_threads_dep = cc.find_library('fftw3f_threads', required: false)
+if not cc.links(code, dependencies : fftw3f_dep)
+  fftw3f_threads_dep = cc.find_library('fftw3f_threads', required: false)
+  deps += cc.find_library('fftw3f_threads')
 
 # Macos homebrew installed fftw3f do not have pkgcongig for fftw3f_threads
 if not fftw3f_threads_dep.found() and host_machine.system() == 'darwin'

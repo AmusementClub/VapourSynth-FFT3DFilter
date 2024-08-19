@@ -27,7 +27,7 @@ else
   if host_machine.cpu_family().startswith('x86')
     add_project_arguments('-mfpmath=sse', '-msse2', language : 'cpp')
   elif host_machine.cpu_family().startswith('arm') or host_machine.cpu_family() == 'aarch64'
-    add_project_arguments('-Ofast', '-ftree-vectorize', '-fopenmp', '-fno-math-errno', '-fno-trapping-math', language: 'cpp')
+    add_project_arguments('-Ofast', '-ftree-vectorize', '-fno-math-errno', '-fno-trapping-math', language: 'cpp')
   endif
 endif
 
